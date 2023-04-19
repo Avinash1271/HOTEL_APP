@@ -1,0 +1,31 @@
+.details-container {
+    margin: 20px;
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+}
+
+.details-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.details-table th {
+    background-color: #f2f2f2;
+    text-align: left;
+    padding: 8px;
+}
+
+.details-table td {
+    border-bottom: 1px solid #ddd;
+    padding: 8px;
+}
+
+.details-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.details-table tr:hover {
+    background-color: #ddd;
+}

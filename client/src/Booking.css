@@ -1,0 +1,104 @@
+.main {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .image-container {
+    flex-basis: 50%;
+    margin-right: 20px;
+  }
+  
+  .room-type {
+    font-size: 20px;
+    margin: 0;
+  }
+  
+  .image {
+    width: 100%;
+    height: auto;
+  }
+  
+  .booking-container {
+    flex-basis: 50%;
+  }
+  
+  .booking-heading {
+    font-size: 24px;
+    margin: 0;
+  }
+  
+  .hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 20px 0;
+  }
+  
+  .booking-info-item {
+    margin: 5px 0;
+  }
+  
+  .booking-info-item span {
+    font-weight: bold;
+  }
+  
+  .amount-details-heading {
+    font-size: 24px;
+    margin: 0;
+  }
+  
+  .amount-details-item {
+    margin: 5px 0;
+  }
+  
+  .amount-details-item span {
+    font-weight: bold;
+  }
+  
+  .button {
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .button:hover {
+    background-color: #006B87;
+  }
+  
+
+  @media only screen and (max-width: 768px) {
+    .main {
+      flex-direction: column;
+      margin: 10px;
+      padding: 10px;
+    }
+  
+    .image-container {
+      margin-right: 0;
+      margin-bottom: 20px;
+    }
+  
+    .booking-container {
+      margin-top: 20px;
+    }
+  
+    .booking-info-item,
+    .amount-details-item {
+      font-size: 14px;
+    }
+  
+    .button {
+      font-size: 14px;
+      padding: 5px 10px;
+    }
+  }
+  
+
