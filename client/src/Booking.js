@@ -16,6 +16,10 @@ const Booking = () => {
   const [fromDate,setFromDate] = useState();
   const [todate,setToDate] = useState();
   const [roomNumber,setRoomNumber] = useState();
+  const [roomType,setRoomType] = useState();
+
+  const [bookingStatus, setBookingStatus] = useState('');
+
 
   async function userDetails(){
     const user={
@@ -23,8 +27,8 @@ const Booking = () => {
         userEmail: email,
         fromDate: fromDate,
         toDate: todate,
-        roomNumber: roomNumber
-        
+        roomNumber: roomNumber,
+        roomType:roomType
     }
     console.log(user);
 
@@ -38,34 +42,16 @@ const Booking = () => {
     .then(res => res.json())
     .then(response => {
         console.log(response);
+        if (response.data.status === 'success') {
+          console.log(response.data.status);
+          setBookingStatus('Booking successful!');
+        } else {
+          setBookingStatus(response.data.message || 'Booking failed. Please try again.');
+        }
     });
     }
 
-    // async function userDetails() {
-    //     const user = {
-    //       name: name,
-    //       userEmail: email,
-    //       fromDate: fromDate,
-    //       toDate: todate,
-    //       roomNumber: roomNumber,
-    //     };
-    //     console.log(user);
-      
-    //     try {
-    //       const response = await axios.post(
-    //         'http://localhost:5000/api/users/book/create',
-    //         user,
-    //         {
-    //           headers: {
-    //             'Content-Type': 'application/json',
-    //           },
-    //         }
-    //       );
-    //       console.log(response.data);
-    //     } catch (error) {
-    //       console.log(error);
-    //     }
-    //   }
+   
   useEffect(() => {
     async function fetchData() {
       try {
@@ -110,25 +96,35 @@ const Booking = () => {
             <input id='fromDate' class='booking-info-item' placeholder='From' type='date' value={fromDate}
             onChange={(e)=>{setFromDate(e.target.value)}}
             /><br />
+
             <label for='toDate'>To Date</label>
             <input id='toDate' class='booking-info-item' placeholder='To' type='date' value={todate}
             onChange={(e)=>{setToDate(e.target.value)}}
             /><br />
+
             <input class='booking-info-item' placeholder='Room Number' type='text' value={roomNumber}
             onChange={(e)=>{
               setRoomNumber(e.target.value);
             }}
+            /><br></br>
+
+            <input class='booking-info-item' placeholder='Room Type' type='text' value={roomType}
+            onChange={(e)=>{
+              setRoomType(e.target.value);
+            }}
             />
+            
           </b>
         </div>
         <hr class='hr' />
         <div class='amount-details'>
           <h1 class='amount-details-heading'>Amount Details</h1>
           <p class='amount-details-item'><span>Rent Per Day:</span> ₹{room.rentPerDay}</p>
-          <p class='amount-details-item'><span>Total Amount:</span> ₹{room.rentPerDay * setRoomNumber}</p>
+          <p class='amount-details-item'><span>Total Amount:</span> ₹{room.rentPerDay}</p>
         </div>
         <div class='button-container'>
           <button class='button' onClick={userDetails}>Book Now</button>
+          {bookingStatus && <p>{bookingStatus}</p>}
         </div>
       </div>
     </div>      

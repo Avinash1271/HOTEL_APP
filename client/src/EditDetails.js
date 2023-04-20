@@ -87,7 +87,6 @@ const EditDetails = ({ detail, handleEdit }) => {
           </Form.Group>
 
           <Modal.Footer>
-            <Button variant="secondary" >Cancel</Button>
             <Button variant="primary" type="submit" onClick={() => handleEdit(null)}>Save changes</Button>
           </Modal.Footer>
         </Form>

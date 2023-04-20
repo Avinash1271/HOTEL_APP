@@ -12,6 +12,10 @@ import url from './config';
 const ViewDetails = () => {
     const [details, setDetails] = useState([]);
     const [selectedDetail, setSelectedDetail] = useState(null);
+    const [roomNumberFilter, setRoomNumberFilter] = useState('');
+    const [roomTypeFilter, setRoomTypeFilter] = useState('');
+    const [startTimeFilter, setStartTimeFilter] = useState('');
+    const [endTimeFilter, setEndTimeFilter] = useState('');
 
     useEffect(() => {
         async function fetchData() {
@@ -53,16 +57,56 @@ const ViewDetails = () => {
         }
       };      
     
-        
-
     const handleEditClick = (detail) => {
         console.log(detail);
         setSelectedDetail(detail);
     }
-    
+
+    const handleRoomNumberFilterChange = (event) => {
+        setRoomNumberFilter(event.target.value);
+    };
+
+    const handleRoomTypeFilterChange = (event) => {
+        setRoomTypeFilter(event.target.value);
+    };
+
+    const handleStartTimeFilterChange = (event) => {
+        setStartTimeFilter(event.target.value);
+    };
+
+    const handleEndTimeFilterChange = (event) => {
+        setEndTimeFilter(event.target.value);
+    };
+
+    const filteredDetails = details.filter((detail) => {
+        if (roomNumberFilter && detail.roomNumber !== roomNumberFilter) {
+            return false;
+        }
+        if (roomTypeFilter && detail.roomType !== roomTypeFilter) {
+            return false;
+        }
+        if (startTimeFilter && detail.startTime < startTimeFilter) {
+            return false;
+        }
+        if (endTimeFilter && detail.endTime > endTimeFilter) {
+            return false;
+        }
+        return true;
+    });
+
     return (
         <div class="details-container">
             <h1>All Bookings</h1>
+            <div class="filters">
+                <label>Room Number:</label>
+                <input type="text" value={roomNumberFilter} onChange={handleRoomNumberFilterChange} />
+                <label>Room Type:</label>
+                <input type="text" value={roomTypeFilter} onChange={handleRoomTypeFilterChange} />
+                <label>Start Time:</label>
+                <input type="text" value={startTimeFilter} onChange={handleStartTimeFilterChange} />
+                <label>End Time:</label>
+                <input type="text" value={endTimeFilter} onChange={handleEndTimeFilterChange} />
+            </div>
             <table class="details-table">
                 <thead>
                     <tr>
@@ -70,37 +114,34 @@ const ViewDetails = () => {
                         <th>Name</th>
                         <th>Email</th>
                         <th>Room Number</th>
-                        <th>From Date</th>
-                        <th>To Date</th>
+                        <th>Room Type</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {details.map((detail) => (
+                    {filteredDetails.map((detail) => (
                         <tr key={detail._id}>
                             <td>{detail._id}</td>
                             <td>{detail.name}</td>
                             <td>{detail.userEmail}</td>
                             <td>{detail.roomNumber}</td>
+                            <td>{detail.roomType}</td>
                             <td>{detail.fromDate}</td>
                             <td>{detail.toDate}</td>
                             <td>
-                                <Button variant="primary" size="sm" onClick={() => handleEditClick(detail)}>
-                                    Edit
-                                </Button>
-                                <Button variant="danger" size="sm" onClick={() => handleDelete(detail._id)}>
-                                    Delete
-                                </Button>
+                                <Button variant="primary" onClick={() => handleEditClick(detail)}>Edit</Button>{' '}
+                                <Button variant="danger" onClick={() => handleDelete(detail._id)}>Delete</Button>{' '}
+                                {/* <Link to={/details/${detail._id}}><Button variant="info">Details</Button></Link> */}
                             </td>
                         </tr>
                     ))}
-                </tbody>
-            </table>
-            {selectedDetail && (
-                <EditDetails detail={selectedDetail} handleEdit={handleEdit} />
-            )}
-        </div>
-    );
+            </tbody>
+        </table>
+    {selectedDetail && <EditDetails detail={selectedDetail} onEdit={handleEdit} onCancel={() => setSelectedDetail(null)} />}
+    </div>
+);
 };
 
 export default ViewDetails;

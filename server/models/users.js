@@ -26,6 +26,10 @@ const userSchema = mongoose.Schema({
     toDate:{
         type:Date,
         required:true
+    },
+    roomType:{
+        type:String,
+        required:true
     }
 })
 

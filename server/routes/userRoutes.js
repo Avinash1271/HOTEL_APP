@@ -10,7 +10,6 @@ router.post("/book/create", async (req, res) => {
     try {
         const user = await newuser.save();
         res.send("Booking successful");
-        //alert("Booking Successful")
     } catch (error) {
         console.log(error);
         return res.status(400).send({ message: error });
